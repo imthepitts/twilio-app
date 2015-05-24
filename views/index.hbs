@@ -15,7 +15,23 @@
 
         device.incoming(function(connection){
         	console.log('INCOMING');
-        	connection.accept();
+        	if (confirm('Accept call from ' + connection.parameters.From)){
+                connection.accept();
+            } else {
+                console.log('REJECTED');
+                connection.reject();
+                $.ajax('/sms',
+                    {
+                        method: 'POST',
+                        data: {
+                            to: connection.parameters.From,
+                            body: 'Sorry! I\'m stuck in a meeting. :( Will call you in a bit. I love you!'
+                        }   
+                    }
+                ).done(function(data){
+                    console.log('SMS SENT');
+                });
+            }
         });
 
         device.disconnect(function(connection){
