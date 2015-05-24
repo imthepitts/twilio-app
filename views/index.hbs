@@ -1,0 +1,30 @@
+<h1>{{title}}</h1>
+<p>Welcome to {{title}}</p>
+
+
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="//static.twilio.com/libs/twiliojs/1.2/twilio.min.js"></script>
+<script>
+    $(function(){
+    	var device = Twilio.Device;
+        device.setup('{{token}}', {debug: true});
+
+        device.ready(function(){
+        	console.log('READY');
+        });
+
+        device.incoming(function(connection){
+        	console.log('INCOMING');
+        	connection.accept();
+        });
+
+        device.disconnect(function(connection){
+        	console.log('DISCONNECTED');
+        });
+
+        device.error(function(error){
+        	console.log(error)
+        });
+       
+    });
+</script>
