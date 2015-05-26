@@ -1,0 +1,22 @@
+<input id="to" placeholder="To"><br>
+<input id="body" placeholder="Body"><br>
+<input id="mediaUrl" placeholder="Media"><br>
+<buton id="send">Send Message</button>
+
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="//static.twilio.com/libs/twiliojs/1.2/twilio.min.js"></script>
+<script>
+    $(function(){
+       $('#send').on('click', function(){
+            $.ajax('/message-test',
+            {
+                method: 'POST',
+                data: {
+                    to: $('#to').val(),
+                    body: $('#body').val(),
+                    mediaUrl: $('#mediaUrl').val()
+                }
+            }).done();
+       });
+    });
+</script>
